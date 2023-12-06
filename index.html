@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock-Paper-Scissor</title>
+  </head>
+  <body>
+    <script>
+      function getComputerChoice() {
+        switch (Math.floor(Math.random() * 3)) {
+          case 0:
+            return "Rock";
+            break;
+          case 1:
+            return "Paper";
+            break;
+          case 2:
+            return "Scissor";
+            break;
+          default:
+            return "Undefined";
+        }
+      }
+
+      console.log(getComputerChoice());
+    </script>
+  </body>
+</html>
