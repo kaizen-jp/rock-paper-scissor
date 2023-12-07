@@ -27,8 +27,38 @@
         return "Rock";
       }
 
-      console.log(getComputerChoice());
-      console.log(getPlayerChoice());
+      function playRound(playerSelection, computerSelection) {
+        let playerSelected = getPlayerChoice().toLowerCase();
+        let computerSelected = getComputerChoice().toLowerCase();
+
+        if (playerSelected === computerSelected) {
+          console.log("It's a TIE! Lets play another round!");
+        } else if (
+          (playerSelected == "rock" && computerSelected == "paper") ||
+          (playerSelected == "paper" && computerSelected == "scissor") ||
+          (playerSelected == "scissor" && computerSelected == "rock")
+        )
+          console.log(`You lose! ${playerSelected} beats ${computerSelected}`);
+        else if (
+          (playerSelected == "rock" && computerSelected == "scissor") ||
+          (playerSelected == "paper" && computerSelected == "rock") ||
+          (playerSelected == "scissor" && computerSelected == "paper")
+        ) {
+          playerSelected =
+            playerSelected.charAt(0).toUpperCase() +
+            playerSelected.slice(1).toLowerCase();
+          computerSelected =
+            computerSelected.charAt(0).toUpperCase() +
+            computerSelected.slice(1).toLowerCase();
+          console.log(
+            `Player Won! ${playerSelected} beats ${computerSelected}`
+          );
+        } else {
+          console.log("Cannot identify the winner!");
+        }
+      }
+
+      playRound();
     </script>
   </body>
 </html>
