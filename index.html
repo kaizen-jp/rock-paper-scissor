@@ -37,9 +37,15 @@
           (playerSelected == "rock" && computerSelected == "paper") ||
           (playerSelected == "paper" && computerSelected == "scissor") ||
           (playerSelected == "scissor" && computerSelected == "rock")
-        )
+        ) {
+          playerSelected =
+            playerSelected.charAt(0).toUpperCase() +
+            playerSelected.slice(1).toLowerCase();
+          computerSelected =
+            computerSelected.charAt(0).toUpperCase() +
+            computerSelected.slice(1).toLowerCase();
           console.log(`You lose! ${playerSelected} beats ${computerSelected}`);
-        else if (
+        } else if (
           (playerSelected == "rock" && computerSelected == "scissor") ||
           (playerSelected == "paper" && computerSelected == "rock") ||
           (playerSelected == "scissor" && computerSelected == "paper")
