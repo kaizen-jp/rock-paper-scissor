@@ -6,7 +6,26 @@
     <title>Rock-Paper-Scissor</title>
   </head>
   <body>
+    <div class="display"></div>
+    <div>
+      <button>Rock</button>
+      <button>Paper</button>
+      <button>Scissor</button>
+    </div>
+    <div class="roundCount">Round</div>
+    <div>Scores</div>
+    <div class="playerScore">Player:</div>
+    <div class="computerScore">Computer:</div>
     <script>
+      let roundCount = 0;
+      let playerScore = 0;
+      let computerScore = 0;
+
+      const display = document.querySelector(".display");
+      const roundCountDisplay = document.querySelector(".roundCount");
+      const playerScoreDisplay = document.querySelector(".playerScore");
+      const computerScoreDisplay = document.querySelector(".computerScore");
+
       function getComputerChoice() {
         switch (Math.floor(Math.random() * 3)) {
           case 0:
@@ -23,16 +42,13 @@
         }
       }
 
-      function getPlayerChoice() {
-        return prompt("Please choose: Rock, Paper, Scissor");
-      }
-
-      function playRound(playerSelection, computerSelection) {
-        let playerSelected = getPlayerChoice().toLowerCase();
-        let computerSelected = getComputerChoice().toLowerCase();
+      function playRound(playerSelect, computerSelect) {
+        let playerSelected = playerSelect.toLowerCase();
+        let computerSelected = computerSelect.toLowerCase();
 
         if (playerSelected === computerSelected) {
           console.log("It's a TIE! Lets play another round!");
+          display.textContent = "It's a TIE! Lets play another round!";
         } else if (
           (playerSelected == "rock" && computerSelected == "paper") ||
           (playerSelected == "paper" && computerSelected == "scissor") ||
@@ -45,6 +61,9 @@
             computerSelected.charAt(0).toUpperCase() +
             computerSelected.slice(1).toLowerCase();
           console.log(`You lose! ${playerSelected} beats ${computerSelected}`);
+          display.textContent = `You lose! ${playerSelected} beats ${computerSelected}`;
+          computerScore++;
+          incrementRound();
         } else if (
           (playerSelected == "rock" && computerSelected == "scissor") ||
           (playerSelected == "paper" && computerSelected == "rock") ||
@@ -59,18 +78,53 @@
           console.log(
             `Player Won! ${playerSelected} beats ${computerSelected}`
           );
+          display.textContent = `Player Won! ${playerSelected} beats ${computerSelected}`;
+          playerScore++;
+          incrementRound();
         } else {
           console.log("Cannot identify the winner!");
+          display.textContent = "Cannot identify the winner!";
         }
       }
 
-      function game5Rounds() {
-        for (let i = 0; i < 5; i++) {
-          playRound();
+      const buttons = document.querySelectorAll("button");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          playRound(button.innerText, getComputerChoice());
+        });
+      });
+
+      function resetGame() {
+        playerScore = 0;
+        computerScore = 0;
+        roundCount = 0;
+      }
+
+      function incrementRound() {
+        roundCount++;
+        roundCountDisplay.textContent = `Round # ${roundCount}`;
+        playerScoreDisplay.textContent = `Player: ${playerScore}`;
+        computerScoreDisplay.textContent = `Computer: ${computerScore}`;
+        if (roundCount == 5) {
+          gameEnd();
         }
       }
 
-      game5Rounds();
+      function gameEnd() {
+        if (playerScore > computerScore) {
+          display.textContent = `Player Won! P: ${playerScore} C: ${computerScore}`;
+          display.style.color = "green";
+        } else if (playerScore == computerScore) {
+          display.textContent = `TIE! P: ${computerScore} C: ${playerScore}`;
+          display.style.color = "black";
+        } else {
+          display.textContent = `Computer Won! P: ${computerScore} C: ${playerScore}`;
+          display.style.color = "red";
+        }
+
+        resetGame();
+      }
     </script>
   </body>
 </html>
